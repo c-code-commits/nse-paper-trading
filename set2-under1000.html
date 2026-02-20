@@ -5,176 +5,210 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Set 2 — Under Rs.1000 Stocks Tracker</title>
 <style>
+:root{--bg:#0f1117;--card:#161b22;--bdr:#21262d;--tx:#e1e4e8;--mt:#8b949e;--dm:#484f58;--gn:#3fb950;--rd:#f85149;--bl:#58a6ff;--yl:#d29922;--gnb:#0d4429;--rdb:#3d1e20;--blb:#0c2d6b}
+[data-theme="light"]{--bg:#f6f8fa;--card:#fff;--bdr:#d0d7de;--tx:#1f2328;--mt:#656d76;--dm:#8b949e;--gn:#1a7f37;--rd:#cf222e;--bl:#0969da;--yl:#9a6700;--gnb:#dafbe1;--rdb:#ffebe9;--blb:#ddf4ff}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f1117;color:#e1e4e8;line-height:1.5;padding:16px;max-width:960px;margin:0 auto}
-a{color:#58a6ff;text-decoration:none}
-.header{text-align:center;padding:20px 0 10px;border-bottom:1px solid #21262d}
-.header h1{font-size:1.4rem;font-weight:600;color:#c9d1d9}
-.header .meta{font-size:.8rem;color:#8b949e;margin-top:4px}
-.mbadge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:600;margin-left:6px}
-.mopen{background:#0d4429;color:#3fb950}.mclosed{background:#3d1e20;color:#f85149}
-.nav{display:block;text-align:center;margin:10px 0;font-size:.8rem}
-.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
-.card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px;text-align:center}
-.card .l{font-size:.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:.5px}
-.card .v{font-size:1.3rem;font-weight:700;margin-top:4px}
-.pos{color:#3fb950}.neg{color:#f85149}.neut{color:#8b949e}
-.rbar{display:flex;align-items:center;justify-content:space-between;margin:14px 0;font-size:.75rem;color:#8b949e}
-.btn{background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:.75rem}
-.btn:hover{background:#30363d}
-.sc{background:#161b22;border:1px solid #21262d;border-radius:8px;margin-bottom:12px;overflow:hidden}
-.sh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #21262d}
-.sn{font-weight:600;font-size:.95rem}
-.st{color:#8b949e;font-size:.75rem;font-family:monospace}
-.b{padding:2px 8px;border-radius:10px;font-size:.65rem;font-weight:600;text-transform:uppercase}
-.b1{background:#0d4429;color:#3fb950}.b2{background:#0c2d6b;color:#58a6ff}
-.b3{background:#3d1e20;color:#f85149}.b4{background:#1b6b2e;color:#7ee787}.b5{background:#6e1b1b;color:#ff7b72}
-.sb{padding:12px 16px}
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:12px}
-.sg .i .ll{font-size:.65rem;color:#8b949e;text-transform:uppercase}
-.sg .i .vv{font-size:.9rem;font-weight:600}
-.pw{margin:8px 0}
-.pl{display:flex;justify-content:space-between;font-size:.6rem;color:#8b949e;margin-bottom:3px}
-.pb{position:relative;height:8px;background:#21262d;border-radius:4px;overflow:visible}
-.pf{height:100%;border-radius:4px;transition:width .5s}
-.pm{position:absolute;top:-3px;width:3px;height:14px;background:#e1e4e8;border-radius:2px;transform:translateX(-50%)}
-.as{margin-top:24px;border-top:1px solid #21262d;padding-top:16px}
-.as h2{font-size:1rem;margin-bottom:12px;color:#c9d1d9}
-.ai{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px;margin-bottom:10px}
-.ai h3{font-size:.85rem;color:#58a6ff;margin-bottom:6px}
-.ai p{font-size:.78rem;color:#8b949e;line-height:1.6}
-.ai .sl{font-size:.78rem;margin-top:6px;font-weight:600}
-.ld{text-align:center;padding:40px;color:#8b949e}
-.sp{display:inline-block;width:20px;height:20px;border:2px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-.err{background:#3d1e20;border:1px solid #f8514933;border-radius:6px;padding:10px;text-align:center;color:#f85149;font-size:.8rem;margin:10px 0}
-.ft{text-align:center;padding:20px 0;font-size:.7rem;color:#484f58;border-top:1px solid #21262d;margin-top:20px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;padding:12px;max-width:1000px;margin:0 auto;font-size:14px;transition:background .3s,color .3s}
+a{color:var(--bl);text-decoration:none}
+.hdr{text-align:center;padding:16px 0 8px;border-bottom:1px solid var(--bdr)}
+.hdr h1{font-size:1.3rem;font-weight:600}
+.hdr .meta{font-size:.75rem;color:var(--mt);margin-top:4px}
+.mb{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.65rem;font-weight:700}
+.mo{background:var(--gnb);color:var(--gn)}.mc{background:var(--rdb);color:var(--rd)}
+.nav{text-align:center;margin:8px 0;font-size:.78rem}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
+.cd{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:12px;text-align:center}
+.cd .l{font-size:.65rem;color:var(--mt);text-transform:uppercase;letter-spacing:.5px}
+.cd .v{font-size:1.15rem;font-weight:700;margin-top:2px}
+.pos{color:var(--gn)}.neg{color:var(--rd)}.neu{color:var(--mt)}
+.tb{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin:10px 0;font-size:.75rem;color:var(--mt)}
+.tbr{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.btn{background:var(--card);color:var(--tx);border:1px solid var(--bdr);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.72rem}
+.btn:hover{background:var(--bdr)}
+.sc{background:var(--card);border:1px solid var(--bdr);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:4px}
+.sn{font-weight:600;font-size:.9rem}.tk{color:var(--mt);font-size:.72rem;font-family:monospace}
+.bg{padding:2px 8px;border-radius:10px;font-size:.6rem;font-weight:700;text-transform:uppercase;white-space:nowrap}
+.bo{background:var(--gnb);color:var(--gn)}.bn{background:var(--blb);color:var(--bl)}.br{background:var(--rdb);color:var(--rd)}.bt{background:#1b6b2e;color:#7ee787}.bs{background:#6e1b1b;color:#ff7b72}.bp{background:#3d2e00;color:var(--yl)}
+.sb{padding:10px 14px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px;margin-bottom:8px}
+.sg .it .ll{font-size:.6rem;color:var(--mt);text-transform:uppercase}.sg .it .vv{font-size:.82rem;font-weight:600}
+.pw{margin:6px 0}.pll{display:flex;justify-content:space-between;font-size:.55rem;color:var(--mt);margin-bottom:2px}
+.pb{position:relative;height:7px;background:var(--bdr);border-radius:4px;overflow:visible}
+.pf{height:100%;border-radius:4px;transition:width .5s}.pmk{position:absolute;top:-3px;width:3px;height:13px;background:var(--tx);border-radius:2px;transform:translateX(-50%)}
+.spk{margin:6px 0}.spk svg{width:100%;height:30px}
+.tmb{margin:6px 0}.tml{display:flex;justify-content:space-between;font-size:.55rem;color:var(--mt);margin-bottom:2px}
+.tmt{height:5px;background:var(--bdr);border-radius:3px;overflow:hidden}.tmf{height:100%;background:var(--bl);border-radius:3px}
+.sec{margin-top:20px;border-top:1px solid var(--bdr);padding-top:14px}
+.sec h2{font-size:.95rem;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.ai{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:12px;margin-bottom:8px}
+.ai h3{font-size:.8rem;color:var(--bl);margin-bottom:4px}.ai p{font-size:.72rem;color:var(--mt);line-height:1.6}.ai .sl{font-size:.72rem;margin-top:4px;font-weight:600}
+.ct{font-size:.7rem;color:var(--mt);font-weight:400}
+.bkg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.bki{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:10px}
+.bki h4{font-size:.78rem;margin-bottom:4px}.bki .bkp{font-size:.82rem;font-weight:600;margin:2px 0}.bki .bkm{font-size:.65rem;color:var(--mt)}
+.ld{text-align:center;padding:30px;color:var(--mt)}
+.sp{display:inline-block;width:18px;height:18px;border:2px solid var(--bdr);border-top-color:var(--bl);border-radius:50%;animation:spn .7s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes spn{to{transform:rotate(360deg)}}
+.er{background:var(--rdb);border-radius:6px;padding:8px;text-align:center;color:var(--rd);font-size:.75rem;margin:8px 0}
+.ft{text-align:center;padding:16px 0;font-size:.65rem;color:var(--dm);border-top:1px solid var(--bdr);margin-top:16px}
+.nf{position:fixed;top:0;left:0;right:0;padding:10px;text-align:center;font-size:.8rem;font-weight:600;z-index:999;display:none;cursor:pointer}
+.nt{background:#1b6b2e;color:#7ee787}.ns{background:#6e1b1b;color:#ff7b72}
+@media(max-width:500px){.sg{grid-template-columns:repeat(3,1fr)}.sum{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-<div class="header">
-<h1>Set 2 &#8212; Under &#8377;1,000 Stocks</h1>
-<div class="meta">Paper Purchase: 20 Feb 2026 &#160;|&#160; Capital: &#8377;1,00,000 &#160;|&#160; Strategy: 4 trades, &#8377;25,000 each &#160;|&#160; 75% under &#8377;500 <span id="mb" class="mbadge mclosed">LOADING</span></div>
+<div id="nf" class="nf" onclick="this.style.display='none'"></div>
+<div class="hdr"><h1>Set 2 &#8212; Under &#8377;1,000 Stocks</h1>
+<div class="meta">Paper Purchase: 20 Feb 2026 &#160;|&#160; Capital: &#8377;1,00,000 &#160;|&#160; 4 trades @ &#8377;25,000 &#160;|&#160; 75% under &#8377;500 <span id="mbi" class="mb mc">LOADING</span></div></div>
+<div class="nav"><a href="set1-concentrated-bets.html">&#8592; Set 1 &#8212; Concentrated Bets</a> &#160;|&#160; <a href="index.html">Combined View</a></div>
+<div class="sum">
+<div class="cd"><div class="l">Invested</div><div class="v" id="sI">--</div></div>
+<div class="cd"><div class="l">Current Value</div><div class="v" id="sC">--</div></div>
+<div class="cd"><div class="l">Gross P&amp;L</div><div class="v" id="sP">--</div></div>
+<div class="cd"><div class="l">Net (post-tax)</div><div class="v" id="sN">--</div></div>
+<div class="cd"><div class="l">Gross Return</div><div class="v" id="sR">--</div></div>
+<div class="cd"><div class="l">Net Return</div><div class="v" id="sNR">--</div></div>
 </div>
-<div class="nav"><a href="set1-concentrated-bets.html">&#8592; Switch to Set 1 &#8212; Concentrated Bets</a></div>
-<div class="summary">
-<div class="card"><div class="l">Invested</div><div class="v" id="sInv">--</div></div>
-<div class="card"><div class="l">Current Value</div><div class="v" id="sCur">--</div></div>
-<div class="card"><div class="l">P&amp;L</div><div class="v" id="sPL">--</div></div>
-<div class="card"><div class="l">Return</div><div class="v" id="sRet">--</div></div>
-</div>
-<div class="rbar">
-<span id="lu">Last updated: --</span>
-<div><span id="asm"></span> <button class="btn" onclick="go()">Refresh Now</button></div>
-</div>
-<div id="sl"><div class="ld"><span class="sp"></span>Fetching live prices...</div></div>
-<div class="as"><h2>Performance vs Expectations</h2><div id="ac"></div></div>
-<div class="ft">Data: Yahoo Finance via allorigins.win &#8226; Pen-and-paper exercise only &#8226; Not financial advice<br>Source analysis: 17 Feb 2026</div>
+<div class="tb"><span id="lu">Last updated: --</span>
+<div class="tbr"><span id="at"></span>
+<button class="btn" onclick="go()">&#8635; Refresh</button>
+<button class="btn" onclick="srt()">&#8645; Sort P&amp;L</button>
+<button class="btn" onclick="csv()">&#8615; CSV</button>
+<button class="btn" onclick="thm()">&#9681; Theme</button></div></div>
+<div id="stk"><div class="ld"><span class="sp"></span>Fetching live prices...</div></div>
+<div class="sec"><h2>Backup Trades <span class="ct" id="bks"></span></h2><div class="bkg" id="bkg"><div class="ld"><span class="sp"></span></div></div></div>
+<div class="sec"><h2>Performance vs Expectations <span class="ct" id="cc"></span></h2><div id="ac"></div></div>
+<div class="ft">Data: Yahoo Finance via allorigins.win &#8226; Pen-and-paper only &#8226; Not financial advice<br>Source: 17 Feb 2026</div>
 <script>
 var S=[
-{name:"ITC Limited",tk:"ITC",sym:"ITC.NS",bp:327.40,qty:76,tgt:390,sl:295,er:"+19%",et:"2-4 months",
-cat:"Most beaten-down mega-cap in India: 27% off 52W high. JP Morgan target Rs.505 (Overweight), Morgan Stanley Rs.578. Cigarette volumes +6.5% YoY despite tax hikes. FMCG segment +11% YoY (Rs.20,000Cr+ revenue). Prasuma acquisition (frozen foods). Bingo Baked Puffs launch. ~4% dividend yield.",
-exp:"Post-excise duty assessment in March \u2014 if cigarette volumes hold, stock re-rates. Q4 FY26 results (April) with FMCG acceleration triggers analyst upgrades. Conservative target Rs.390 (+19%). Even halfway there is solid for a mega-cap."},
-{name:"IRCTC",tk:"IRCTC",sym:"IRCTC.NS",bp:646.90,qty:38,tgt:750,sl:565,er:"+21.6%",et:"2-4 months",
-cat:"India's only railway monopoly \u2014 sole entity for online tickets, onboard catering, Rail Neer water, tourism. 260 Vande Bharat trains in pipeline (each = new catering contract). Q3 catering at all-time high Rs.661Cr (+19% YoY). AI-enabled unified portal launching 2026. E-Pantry live on 25 trains (Feb 9). 30-35 budget hotels planned (Rs.600Cr PPP).",
-exp:"New Vande Bharat commissions in March + AI portal launch. Q4 FY26 results (April) should show another catering record, pushing to Rs.720-750. FY27 guidance + hotel expansion updates May-June drive Rs.800+. Prabhudas Lilladher target Rs.850."},
-{name:"Oswal Pumps",tk:"OSWALPUMPS",sym:"OSWALPUMPS.NS",bp:343.25,qty:72,tgt:430,sl:310,er:"+22.2%",et:"2-3 months",
-cat:"PM KUSUM leader with 31% market share. Guaranteed govt orders: Karnataka Rs.120Cr (3,263 pumps), Maharashtra Rs.180Cr (6,500 pumps). Revenue +46% YoY. ROCE 77.9%, ROE 87.5%. Solar module capacity expanding 570MW to 1.5GW (Phase 1 Feb 2026). Backward integration into aluminium extrusions, EVA, junction boxes, inverters.",
-exp:"Karnataka order execution begins March. Q4 FY26 revenue includes recent order execution. Solar module Phase 1 completing now boosts capacity. Government push for 3Cr solar pumps by 2030 (only 25L installed). Conservative target Rs.430, higher possible on new state orders."},
-{name:"Zaggle Prepaid",tk:"ZAGGLE",sym:"ZAGGLE.NS",bp:238.95,qty:104,tgt:320,sl:225,er:"+22.6%",et:"2-4 months",
-cat:"Fastest-growing fintech: revenue +47.9% YoY, profit +77.7% YoY. 3.7M+ users, 3,700+ corporates. Visa 7-year co-branded prepaid card partnership. Mastercard 5-year credit card deal (Dec 2025). Euronet 5-year co-branded cards (Feb 2026). SaaS platform with recurring revenue. 50M+ prepaid cards issued.",
-exp:"Q4 transaction volumes + Visa/Mastercard ramp-up should show in results (April). Stock fell 10% on a one-time adjustment despite strong Q3 \u2014 market overreaction = buying opportunity. Conservative target Rs.320 (+22.6%). Growth of 48% makes 25x P/E cheap."}
+{n:"ITC Limited",tk:"ITC",sy:"ITC.NS",bp:327.40,q:76,tg:390,sl:295,er:"+19%",et:"2-4 months",
+ct:"27% off 52W high. JP Morgan Rs.505, Morgan Stanley Rs.578. Cigarette vol +6.5% YoY. FMCG +11%. Prasuma acquisition. Bingo Baked Puffs. ~4% dividend yield.",
+ex:"Post-excise March assessment. Q4 (April) FMCG acceleration triggers upgrades. Conservative Rs.390 (+19%).",
+cs:[{n:"Excise duty impact assessment",d:"2026-03-15"},{n:"Q4 FY26 results",d:"2026-04-20"},{n:"Final dividend",d:"2026-06-15"}]},
+{n:"IRCTC",tk:"IRCTC",sy:"IRCTC.NS",bp:646.90,q:38,tg:750,sl:565,er:"+21.6%",et:"2-4 months",
+ct:"Railway monopoly. 260 Vande Bharat in pipeline. Q3 catering ATH Rs.661Cr (+19%). AI portal 2026. E-Pantry on 25 trains. 30-35 budget hotels planned.",
+ex:"Vande Bharat commissions March + AI portal. Q4 (April) catering record to Rs.720-750. FY27 guidance to Rs.800+. PL target Rs.850.",
+cs:[{n:"Vande Bharat commissions",d:"2026-03-15"},{n:"AI portal launch",d:"2026-04-01"},{n:"Q4 FY26 results",d:"2026-04-20"}]},
+{n:"Oswal Pumps",tk:"OSWALPUMPS",sy:"OSWALPUMPS.NS",bp:343.25,q:72,tg:430,sl:310,er:"+22.2%",et:"2-3 months",
+ct:"PM KUSUM 31% share. Karnataka Rs.120Cr + Maharashtra Rs.180Cr orders. Rev +46% YoY. ROCE 78%. Solar 570MW\u21921.5GW. Backward integration.",
+ex:"Karnataka order execution March. Q4 includes recent orders. Phase 1 capacity completing. Target Rs.430.",
+cs:[{n:"Solar module Phase 1 complete",d:"2026-02-28"},{n:"Karnataka order execution",d:"2026-03-15"},{n:"Q4 FY26 results",d:"2026-04-20"}]},
+{n:"Zaggle Prepaid",tk:"ZAGGLE",sy:"ZAGGLE.NS",bp:238.95,q:104,tg:320,sl:225,er:"+22.6%",et:"2-4 months",
+ct:"Rev +47.9%, profit +77.7% YoY. 3.7M users. Visa 7yr + Mastercard 5yr + Euronet 5yr deals. SaaS recurring revenue. 50M+ cards.",
+ex:"Q4 Visa/Mastercard ramp. Market overreacted to one-time adjustment. Target Rs.320 (+22.6%).",
+cs:[{n:"Visa card rollout ramp",d:"2026-03-15"},{n:"Q4 FY26 results",d:"2026-04-20"}]}
 ];
-var PX="https://api.allorigins.win/get?url=";
-var tmr=null;
-function fI(n){if(n==null||isNaN(n))return"--";var ng=n<0,a=Math.abs(n);return(ng?"-":"")+"\u20B9"+a.toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
-function fP(n){if(n==null||isNaN(n))return"--";return(n>=0?"+":"")+n.toFixed(2)+"%"}
-function cc(n){return n>0.01?"pos":n<-0.01?"neg":"neut"}
-function mkt(){var d=new Date(),ist=new Date(d.toLocaleString("en-US",{timeZone:"Asia/Kolkata"})),dy=ist.getDay(),m=ist.getHours()*60+ist.getMinutes();return dy>0&&dy<6&&m>=555&&m<=930}
-async function fp(sym,retries){
-retries=retries||0;
-try{
-var u=PX+encodeURIComponent("https://query1.finance.yahoo.com/v8/finance/chart/"+sym+"?interval=1d&range=5d");
-var r=await fetch(u),w=await r.json(),d=JSON.parse(w.contents),mt=d.chart.result[0].meta;
-var p=mt.regularMarketPrice,pc=mt.chartPreviousClose;
-return{price:p,prevClose:pc,dc:p-pc,dcp:((p-pc)/pc)*100}
-}catch(e){if(retries<2){await new Promise(function(r){setTimeout(r,1500)});return fp(sym,retries+1)}throw e}}
-function gs(c,bp,tgt,sl){
-if(c<=sl)return{t:"HIT SL",c:"b5"};if(c>=tgt)return{t:"TARGET HIT",c:"b4"};
-var pt=((tgt-c)/(tgt-bp))*100;if(pt<=20)return{t:"NEAR TARGET",c:"b2"};
-var ps=((c-sl)/(bp-sl))*100;if(ps<=30)return{t:"AT RISK",c:"b3"};
-return{t:"ON TRACK",c:"b1"}}
-function pp(c,sl,tgt){return Math.max(0,Math.min(100,((c-sl)/(tgt-sl))*100))}
-function pcl(c,bp,sl){if(c>=bp)return"#3fb950";var r=(bp-c)/(bp-sl);return r>0.6?"#f85149":r>0.3?"#d29922":"#d29922"}
-function render(R){
-var tI=0,tC=0,h="";
-S.forEach(function(s,i){
-var inv=s.bp*s.qty;tI+=inv;var cv=inv,p=null,dc=0,dcp=0,st={t:"LOADING",c:"b1"},em="";
-var r=R[i];
-if(r&&r.price){p=r.price;cv=p*s.qty;dc=r.dc;dcp=r.dcp;st=gs(p,s.bp,s.tgt,s.sl)}
+var BK=[
+{n:"Shakti Pumps",sy:"SHAKTIPUMP.NS",tg:900,nt:"PM KUSUM 25% share. Rs.1,800Cr order book. EV motors diversification"},
+{n:"Cello World",sy:"CELLO.NS",tg:835,nt:"52W low. New 20,000MT glassware + steelware plants ramping"},
+{n:"Triveni Turbine",sy:"TRITURBINE.NS",tg:630,nt:"Record Rs.2,220Cr order book. 26.3% EBITDA margin"},
+{n:"Tips Music",sy:"TIPSMUSIC.NS",tg:690,nt:"ROCE 109%. Music IP royalties. Streaming growing 20%+ YoY"}
+];
+var PX="https://api.allorigins.win/get?url=",tm=null,sd=0,LR=null,TAX=.208,TXC=345,D0=new Date("2026-02-20"),WD=120;
+function fI(v){if(v==null||isNaN(v))return"--";var g=v<0,a=Math.abs(v);return(g?"-":"")+"\u20B9"+a.toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fP(v){if(v==null||isNaN(v))return"--";return(v>=0?"+":"")+v.toFixed(2)+"%"}
+function cl(v){return v>0.01?"pos":v<-0.01?"neg":"neu"}
+function ism(){var d=new Date(),i=new Date(d.toLocaleString("en-US",{timeZone:"Asia/Kolkata"})),w=i.getDay(),m=i.getHours()*60+i.getMinutes();return w>0&&w<6&&m>=555&&m<=930}
+function dh(){return Math.max(0,Math.floor((Date.now()-D0.getTime())/864e5))}
+function dtc(d){return Math.ceil((new Date(d)-Date.now())/864e5)}
+async function fp(sy,rt){rt=rt||0;try{
+var u=PX+encodeURIComponent("https://query1.finance.yahoo.com/v8/finance/chart/"+sy+"?interval=1d&range=1mo");
+var r=await fetch(u),w=await r.json(),d=JSON.parse(w.contents),rs=d.chart.result[0],m=rs.meta,q=rs.indicators.quote[0];
+var p=m.regularMarketPrice,pc=m.chartPreviousClose,hi=m.regularMarketDayHigh||p,lo=m.regularMarketDayLow||p;
+var cs=[];if(q&&q.close)for(var x=0;x<q.close.length;x++)if(q.close[x]!=null)cs.push(q.close[x]);
+return{p:p,pc:pc,dc:p-pc,dcp:((p-pc)/pc)*100,hi:hi,lo:lo,w5h:m.fiftyTwoWeekHigh,w5l:m.fiftyTwoWeekLow,cs:cs}
+}catch(e){if(rt<2){await new Promise(function(r){setTimeout(r,1500)});return fp(sy,rt+1)}throw e}}
+function svg(cs,bp){if(!cs||cs.length<2)return"";var mn=Math.min.apply(null,cs),mx=Math.max.apply(null,cs);if(mx===mn){mx+=1;mn-=1}
+var W=200,H=26,pts=[];for(var i=0;i<cs.length;i++){var x=(i/(cs.length-1))*W,y=H-((cs[i]-mn)/(mx-mn))*H;pts.push(x.toFixed(1)+","+y.toFixed(1))}
+var c=cs[cs.length-1]>=bp?"var(--gn)":"var(--rd)",by=Math.max(0,Math.min(H,H-((bp-mn)/(mx-mn))*H));
+return'<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none"><line x1="0" y1="'+by.toFixed(1)+'" x2="'+W+'" y2="'+by.toFixed(1)+'" stroke="var(--mt)" stroke-width="0.5" stroke-dasharray="3,3"/><polyline fill="none" stroke="'+c+'" stroke-width="1.5" points="'+pts.join(" ")+'"/></svg>'}
+function gs(c,bp,tg,sl){if(c<=sl)return{t:"HIT SL",c:"bs"};if(c>=tg)return{t:"TARGET HIT",c:"bt"};
+if(((c-bp)/bp)*100>=12)return{t:"BOOK PARTIAL",c:"bp"};
+if(((tg-c)/(tg-bp))*100<=20)return{t:"NEAR TARGET",c:"bn"};
+if(((c-sl)/(bp-sl))*100<=30)return{t:"AT RISK",c:"br"};return{t:"ON TRACK",c:"bo"}}
+function pp(c,sl,tg){return Math.max(0,Math.min(100,((c-sl)/(tg-sl))*100))}
+function pc(c,bp,sl){if(c>=bp)return"var(--gn)";return((bp-c)/(bp-sl))>0.5?"var(--rd)":"var(--yl)"}
+function ntf(m,t){if("Notification"in window&&Notification.permission==="granted")new Notification("NSE Tracker",{body:m});
+var e=document.getElementById("nf");e.textContent=m;e.className="nf "+(t==="t"?"nt":"ns");e.style.display="block";setTimeout(function(){e.style.display="none"},8000)}
+function ren(R){try{if("Notification"in window&&Notification.permission==="default")Notification.requestPermission()}catch(e){}
+var tI=0,tC=0,its=[];
+S.forEach(function(s,i){var inv=s.bp*s.q;tI+=inv;var cv=inv,p=null,r=R[i],dc=0,dcp=0,hi=null,lo=null,w5h=null,w5l=null,cs=[],st={t:"LOADING",c:"bo"},em="";
+if(r&&r.p){p=r.p;cv=p*s.q;dc=r.dc;dcp=r.dcp;hi=r.hi;lo=r.lo;w5h=r.w5h;w5l=r.w5l;cs=r.cs;st=gs(p,s.bp,s.tg,s.sl);
+if(st.t==="TARGET HIT")ntf(s.tk+" hit target at "+fI(p)+"!","t");if(st.t==="HIT SL")ntf(s.tk+" hit SL at "+fI(p)+"!","s")}
 else if(r&&r.error)em=r.error;
-tC+=cv;var pl=cv-inv,plp=(pl/inv)*100;
-var pos=p?pp(p,s.sl,s.tgt):pp(s.bp,s.sl,s.tgt);
-var bpos=pp(s.bp,s.sl,s.tgt);
-var fc=p?pcl(p,s.bp,s.sl):"#484f58";
-h+='<div class="sc"><div class="sh"><div><span class="sn">'+s.name+'</span> <span class="st">'+s.tk+'</span></div><span class="b '+st.c+'">'+st.t+'</span></div><div class="sb">';
-if(em)h+='<div class="err">'+em+'</div>';
+tC+=cv;its.push({s:s,p:p,cv:cv,inv:inv,pl:cv-inv,plp:((cv-inv)/inv)*100,dc:dc,dcp:dcp,hi:hi,lo:lo,w5h:w5h,w5l:w5l,cs:cs,st:st,em:em})});
+if(sd!==0)its.sort(function(a,b){return sd*(b.plp-a.plp)});
+var h="",dy=dh();
+its.forEach(function(d){var s=d.s,p=d.p,pos=p?pp(p,s.sl,s.tg):pp(s.bp,s.sl,s.tg),bps=pp(s.bp,s.sl,s.tg),fc=p?pc(p,s.bp,s.sl):"var(--dm)",tp=Math.min(100,(dy/WD)*100);
+var np=d.pl>0?d.pl*(1-TAX):d.pl;
+h+='<div class="sc"><div class="sh"><div><span class="sn">'+s.n+'</span> <span class="tk">'+s.tk+'</span></div><span class="bg '+d.st.c+'">'+d.st.t+'</span></div><div class="sb">';
+if(d.em)h+='<div class="er">'+d.em+'</div>';
 h+='<div class="sg">';
-h+='<div class="i"><div class="ll">Qty</div><div class="vv">'+s.qty+'</div></div>';
-h+='<div class="i"><div class="ll">Buy Price</div><div class="vv">'+fI(s.bp)+'</div></div>';
-h+='<div class="i"><div class="ll">Current</div><div class="vv '+(p?cc(p-s.bp):"")+'">'+( p?fI(p):"--")+'</div></div>';
-h+='<div class="i"><div class="ll">Day Chg</div><div class="vv '+cc(dc)+'">'+(p?fP(dcp):"--")+'</div></div>';
-h+='<div class="i"><div class="ll">P&L</div><div class="vv '+cc(pl)+'">'+(p?fI(pl):"--")+'</div></div>';
-h+='<div class="i"><div class="ll">Return</div><div class="vv '+cc(plp)+'">'+(p?fP(plp):"--")+'</div></div>';
-h+='</div>';
-h+='<div class="pw"><div class="pl"><span>SL '+fI(s.sl)+'</span><span>Buy '+fI(s.bp)+'</span><span>Target '+fI(s.tgt)+'</span></div>';
-h+='<div class="pb"><div class="pf" style="width:'+pos+'%;background:'+fc+'"></div><div class="pm" style="left:'+bpos+'%"></div></div></div>';
-h+='</div></div>';
-});
-document.getElementById("sl").innerHTML=h;
-var tPL=tC-tI,tPP=(tPL/tI)*100;
-document.getElementById("sInv").textContent=fI(tI);
-var e1=document.getElementById("sCur");e1.textContent=fI(tC);e1.className="v "+cc(tPL);
-var e2=document.getElementById("sPL");e2.textContent=fI(tPL);e2.className="v "+cc(tPL);
-var e3=document.getElementById("sRet");e3.textContent=fP(tPP);e3.className="v "+cc(tPP);
-rA(R,tPL,tPP);
-}
-function rA(R,tPL,tPP){
-var h="";
-S.forEach(function(s,i){
-var r=R[i],st="";
-if(r&&r.price){
-var p=r.price,pl=((p-s.bp)/s.bp*100).toFixed(2),toT=((s.tgt-p)/(s.tgt-s.bp)*100).toFixed(0),toS=((p-s.sl)/(s.bp-s.sl)*100).toFixed(0);
-var dh=Math.max(0,Math.floor((Date.now()-new Date("2026-02-20").getTime())/86400000));
-if(p>=s.tgt)st='<span class="pos">TARGET ACHIEVED at '+fI(p)+' after '+dh+' days. Expected '+s.et+'. Exit and rotate capital per plan.</span>';
-else if(p<=s.sl)st='<span class="neg">STOP-LOSS HIT at '+fI(p)+' after '+dh+' days. Exit immediately and rotate to backup trade per plan.</span>';
-else if(parseFloat(pl)>=12)st='<span class="pos">UP '+pl+'% \u2014 Per Rule 3, consider booking partial profit (sell 40% of position, let 60% ride to target).</span>';
-else if(parseFloat(pl)>0)st='<span class="pos">UP '+pl+'% ('+dh+' days held). '+toT+'% of move to target remaining. On track \u2014 expected '+s.et+'.</span>';
-else st='<span class="neg">DOWN '+pl+'% ('+dh+' days held). '+toS+'% buffer above stop-loss. '+(parseFloat(toS)<40?"Approaching risk zone \u2014 watch closely.":"Within normal range \u2014 hold per plan.")+'</span>';
-}else st='<span class="neut">Price data unavailable. Refresh to retry.</span>';
-h+='<div class="ai"><h3>'+s.name+' ('+s.tk+')</h3><p><strong>Catalyst:</strong> '+s.cat+'</p><p><strong>Original expectation:</strong> '+s.exp+'</p><div class="sl">'+st+'</div></div>';
-});
-var ov;
-if(tPP>=16)ov='<span class="pos">EXCELLENT: Set is up '+fP(tPP)+' \u2014 outperforming best-case scenario of +16.5%. Consider booking profits on individual winners.</span>';
-else if(tPP>=5)ov='<span class="pos">GOOD: Set is up '+fP(tPP)+' \u2014 tracking toward base-case net return of +11.5% to best-case +16.5%. Catalysts still unfolding.</span>';
-else if(tPP>=0)ov='<span class="neut">NEUTRAL: Set is at '+fP(tPP)+' \u2014 early days. Major catalysts expected March-April 2026 (Q4 results season). Hold per plan.</span>';
-else if(tPP>=-5)ov='<span class="neg">SLIGHT DRAWDOWN: Set is at '+fP(tPP)+'. Within normal range. Worst-case modeled was ~breakeven (-0.4%). Hold unless individual SLs hit.</span>';
-else ov='<span class="neg">SIGNIFICANT DRAWDOWN: Set at '+fP(tPP)+'. Review each stock \u2014 exit any that hit stop-loss. Rotate into backups (Shakti Pumps, Cello World, Triveni Turbine, Tips Music) per plan.</span>';
-h+='<div class="ai"><h3>Overall Set Performance</h3><p><strong>Original scenarios:</strong> Best case +16.5% net (all targets), Base case +11.5% (3 of 4), Worst case ~breakeven (1 win, 1 flat, 2 SL).</p><div class="sl">'+ov+'</div></div>';
-document.getElementById("ac").innerHTML=h;
-}
-async function go(){
-var bd=document.getElementById("mb"),op=mkt();
-bd.textContent=op?"MARKET OPEN":"MARKET CLOSED";bd.className="mbadge "+(op?"mopen":"mclosed");
-document.getElementById("sl").innerHTML='<div class="ld"><span class="sp"></span>Fetching live prices...</div>';
-var R=await Promise.all(S.map(async function(s){try{return await fp(s.sym)}catch(e){return{error:"Failed: "+e.message,price:null}}}));
-render(R);
-document.getElementById("lu").textContent="Last updated: "+new Date().toLocaleString("en-IN",{timeZone:"Asia/Kolkata"});
-if(tmr)clearTimeout(tmr);
-var el=document.getElementById("asm");
-if(mkt()){el.textContent="Auto-refresh: 60s ";tmr=setTimeout(go,60000)}
-else{el.textContent="Auto-refresh paused (market closed) "}
-}
+h+='<div class="it"><div class="ll">Qty</div><div class="vv">'+s.q+'</div></div>';
+h+='<div class="it"><div class="ll">Buy</div><div class="vv">'+fI(s.bp)+'</div></div>';
+h+='<div class="it"><div class="ll">Current</div><div class="vv '+(p?cl(p-s.bp):"")+'">'+( p?fI(p):"--")+'</div></div>';
+h+='<div class="it"><div class="ll">Day Chg</div><div class="vv '+cl(d.dc)+'">'+(p?fP(d.dcp):"--")+'</div></div>';
+h+='<div class="it"><div class="ll">Day H/L</div><div class="vv" style="font-size:.7rem">'+(d.hi?fI(d.hi):"--")+'<br>'+(d.lo?fI(d.lo):"--")+'</div></div>';
+h+='<div class="it"><div class="ll">52W H/L</div><div class="vv" style="font-size:.7rem">'+(d.w5h?fI(d.w5h):"--")+'<br>'+(d.w5l?fI(d.w5l):"--")+'</div></div>';
+h+='<div class="it"><div class="ll">Gross P&L</div><div class="vv '+cl(d.pl)+'">'+(p?fI(d.pl):"--")+'</div></div>';
+h+='<div class="it"><div class="ll">Return</div><div class="vv '+cl(d.plp)+'">'+(p?fP(d.plp):"--")+'</div></div>';
+h+='<div class="it"><div class="ll">Net P&L</div><div class="vv '+cl(np)+'">'+(p?fI(np):"--")+'</div></div>';
+h+='</div><div class="spk">'+svg(d.cs,s.bp)+'</div>';
+h+='<div class="pw"><div class="pll"><span>SL '+fI(s.sl)+'</span><span>Buy '+fI(s.bp)+'</span><span>Tgt '+fI(s.tg)+'</span></div>';
+h+='<div class="pb"><div class="pf" style="width:'+pos+'%;background:'+fc+'"></div><div class="pmk" style="left:'+bps+'%"></div></div></div>';
+h+='<div class="tmb"><div class="tml"><span>Day '+dy+'/'+WD+'</span>';
+var uc=(s.cs||[]).filter(function(c){return dtc(c.d)>0}).sort(function(a,b){return dtc(a.d)-dtc(b.d)});
+if(uc.length)h+='<span>\u23F3 '+uc[0].n+' ('+dtc(uc[0].d)+'d)</span>';
+h+='</div><div class="tmt"><div class="tmf" style="width:'+tp+'%"></div></div></div></div></div>'});
+document.getElementById("stk").innerHTML=h;
+var tPL=tC-tI,tPP=(tPL/tI)*100,nt=tPL>0?tPL*(1-TAX)-TXC:tPL-TXC,ntp=(nt/tI)*100;
+document.getElementById("sI").textContent=fI(tI);
+var e;e=document.getElementById("sC");e.textContent=fI(tC);e.className="v "+cl(tPL);
+e=document.getElementById("sP");e.textContent=fI(tPL);e.className="v "+cl(tPL);
+e=document.getElementById("sN");e.textContent=fI(nt);e.className="v "+cl(nt);
+e=document.getElementById("sR");e.textContent=fP(tPP);e.className="v "+cl(tPP);
+e=document.getElementById("sNR");e.textContent=fP(ntp);e.className="v "+cl(ntp);
+rA(R,tPP);localStorage.setItem("s2c",JSON.stringify({R:R,t:Date.now()}))}
+function rA(R,tPP){var h="",dy=dh(),pa=0,up=0;
+S.forEach(function(s,i){var r=R[i],st="";
+if(r&&r.p){var p=r.p,pl=((p-s.bp)/s.bp*100).toFixed(2),toT=((s.tg-p)/(s.tg-s.bp)*100).toFixed(0),toS=((p-s.sl)/(s.bp-s.sl)*100).toFixed(0);
+if(p>=s.tg)st='<span class="pos">TARGET ACHIEVED '+fI(p)+' after '+dy+'d (expected '+s.et+'). Exit and rotate.</span>';
+else if(p<=s.sl)st='<span class="neg">STOP-LOSS HIT '+fI(p)+' after '+dy+'d. Exit, rotate to backup.</span>';
+else if(parseFloat(pl)>=12)st='<span class="pos">UP '+pl+'% \u2014 BOOK PARTIAL: sell '+Math.round(s.q*.4)+' shares, hold '+Math.round(s.q*.6)+'.</span>';
+else if(parseFloat(pl)>0)st='<span class="pos">UP '+pl+'% ('+dy+'d). '+toT+'% to target. On track ('+s.et+').</span>';
+else st='<span class="neg">DOWN '+pl+'% ('+dy+'d). '+toS+'% above SL. '+(parseFloat(toS)<40?"Risk zone.":"Normal, hold.")+'</span>'}
+else st='<span class="neu">Unavailable.</span>';
+var ch="";(s.cs||[]).forEach(function(c){var d=dtc(c.d);if(d>0){ch+='<br>\u23F3 '+c.n+': <b>'+d+'d away</b>';up++}else{ch+='<br>\u2705 '+c.n+': <b>passed</b>';pa++}});
+h+='<div class="ai"><h3>'+s.n+' ('+s.tk+')</h3><p><b>Catalyst:</b> '+s.ct+ch+'</p><p><b>Expected:</b> '+s.ex+'</p><div class="sl">'+st+'</div></div>'});
+document.getElementById("cc").textContent=pa+" passed, "+up+" upcoming";
+var ov;if(tPP>=16)ov='<span class="pos">EXCELLENT +'+tPP.toFixed(2)+'% \u2014 above best-case +16.5%.</span>';
+else if(tPP>=5)ov='<span class="pos">GOOD +'+tPP.toFixed(2)+'% \u2014 tracking +11.5-16.5%.</span>';
+else if(tPP>=0)ov='<span class="neu">NEUTRAL +'+tPP.toFixed(2)+'%. Catalysts Mar-Apr. Hold.</span>';
+else if(tPP>=-5)ov='<span class="neg">DRAWDOWN '+tPP.toFixed(2)+'%. Worst modeled ~breakeven. Hold.</span>';
+else ov='<span class="neg">DEEP DRAWDOWN '+tPP.toFixed(2)+'%. Exit SL hits, rotate to backups.</span>';
+h+='<div class="ai"><h3>Overall</h3><p>Best +16.5%, Base +11.5% (3/4), Worst ~breakeven.</p><div class="sl">'+ov+'</div></div>';
+document.getElementById("ac").innerHTML=h}
+async function lbk(){var h="",R=await Promise.all(BK.map(async function(b){try{return await fp(b.sy)}catch(e){return{p:null}}}));
+BK.forEach(function(b,i){var r=R[i],p=r&&r.p?r.p:null,up=p?((b.tg-p)/p*100).toFixed(1):null;
+h+='<div class="bki"><h4>'+b.n+' <span class="tk">'+b.sy.replace(".NS","")+'</span></h4>';
+h+='<div class="bkp">'+(p?fI(p):"--")+' <span style="font-size:.65rem;color:var(--mt)">\u2192 '+fI(b.tg)+(up?' ('+up+'%)':'')+'</span></div>';
+h+='<div class="bkm">'+b.nt+'</div></div>'});
+document.getElementById("bkg").innerHTML=h;document.getElementById("bks").textContent="Live prices"}
+async function go(){var b=document.getElementById("mbi"),o=ism();b.textContent=o?"MARKET OPEN":"MARKET CLOSED";b.className="mb "+(o?"mo":"mc");
+var ca=localStorage.getItem("s2c");if(ca){try{var c=JSON.parse(ca);if(Date.now()-c.t<3e5)ren(c.R)}catch(e){}}
+document.getElementById("stk").innerHTML='<div class="ld"><span class="sp"></span>Fetching...</div>';
+var R=await Promise.all(S.map(async function(s){try{return await fp(s.sy)}catch(e){return{error:e.message,p:null}}}));
+LR=R;ren(R);document.getElementById("lu").textContent="Updated: "+new Date().toLocaleString("en-IN",{timeZone:"Asia/Kolkata"});
+if(tm)clearTimeout(tm);var el=document.getElementById("at");
+if(ism()){el.textContent="Auto: 60s ";tm=setTimeout(go,6e4)}else el.textContent="Auto paused ";lbk()}
+function srt(){sd=sd===1?-1:1;if(LR)ren(LR)}
+function csv(){if(!LR)return;var c="Stock,Ticker,Qty,Buy,Current,DayChg%,GrossPL,Return%,NetPL,Target,SL,Status\n";
+S.forEach(function(s,i){var r=LR[i],p=r&&r.p?r.p:0,pl=(p-s.bp)*s.q,pp=((p-s.bp)/s.bp*100),np=pl>0?pl*(1-TAX):pl;
+c+='"'+s.n+'",'+s.tk+','+s.q+','+s.bp+','+p+','+(r&&r.dcp?r.dcp.toFixed(2):0)+','+pl.toFixed(2)+','+pp.toFixed(2)+','+np.toFixed(2)+','+s.tg+','+s.sl+','+(p?gs(p,s.bp,s.tg,s.sl).t:"N/A")+'\n'});
+var b=new Blob([c],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="set2_"+new Date().toISOString().slice(0,10)+".csv";a.click()}
+function thm(){var b=document.body;b.dataset.theme=b.dataset.theme==="light"?"":"light";localStorage.setItem("thm",b.dataset.theme||"dark")}
+(function(){if(localStorage.getItem("thm")==="light")document.body.dataset.theme="light"})();
 go();
 </script>
 </body>
