@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Set 1 — Concentrated Bets Tracker</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f1117;color:#e1e4e8;line-height:1.5;padding:16px;max-width:960px;margin:0 auto}
+a{color:#58a6ff;text-decoration:none}
+.header{text-align:center;padding:20px 0 10px;border-bottom:1px solid #21262d}
+.header h1{font-size:1.4rem;font-weight:600;color:#c9d1d9}
+.header .meta{font-size:.8rem;color:#8b949e;margin-top:4px}
+.mbadge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:600;margin-left:6px}
+.mopen{background:#0d4429;color:#3fb950}.mclosed{background:#3d1e20;color:#f85149}
+.nav{display:block;text-align:center;margin:10px 0;font-size:.8rem}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
+.card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px;text-align:center}
+.card .l{font-size:.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:.5px}
+.card .v{font-size:1.3rem;font-weight:700;margin-top:4px}
+.pos{color:#3fb950}.neg{color:#f85149}.neut{color:#8b949e}
+.rbar{display:flex;align-items:center;justify-content:space-between;margin:14px 0;font-size:.75rem;color:#8b949e}
+.btn{background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.btn:hover{background:#30363d}
+.sc{background:#161b22;border:1px solid #21262d;border-radius:8px;margin-bottom:12px;overflow:hidden}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #21262d}
+.sn{font-weight:600;font-size:.95rem}
+.st{color:#8b949e;font-size:.75rem;font-family:monospace}
+.b{padding:2px 8px;border-radius:10px;font-size:.65rem;font-weight:600;text-transform:uppercase}
+.b1{background:#0d4429;color:#3fb950}.b2{background:#0c2d6b;color:#58a6ff}
+.b3{background:#3d1e20;color:#f85149}.b4{background:#1b6b2e;color:#7ee787}.b5{background:#6e1b1b;color:#ff7b72}
+.sb{padding:12px 16px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:12px}
+.sg .i .ll{font-size:.65rem;color:#8b949e;text-transform:uppercase}
+.sg .i .vv{font-size:.9rem;font-weight:600}
+.pw{margin:8px 0}
+.pl{display:flex;justify-content:space-between;font-size:.6rem;color:#8b949e;margin-bottom:3px}
+.pb{position:relative;height:8px;background:#21262d;border-radius:4px;overflow:visible}
+.pf{height:100%;border-radius:4px;transition:width .5s}
+.pm{position:absolute;top:-3px;width:3px;height:14px;background:#e1e4e8;border-radius:2px;transform:translateX(-50%)}
+.as{margin-top:24px;border-top:1px solid #21262d;padding-top:16px}
+.as h2{font-size:1rem;margin-bottom:12px;color:#c9d1d9}
+.ai{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px;margin-bottom:10px}
+.ai h3{font-size:.85rem;color:#58a6ff;margin-bottom:6px}
+.ai p{font-size:.78rem;color:#8b949e;line-height:1.6}
+.ai .sl{font-size:.78rem;margin-top:6px;font-weight:600}
+.ld{text-align:center;padding:40px;color:#8b949e}
+.sp{display:inline-block;width:20px;height:20px;border:2px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err{background:#3d1e20;border:1px solid #f8514933;border-radius:6px;padding:10px;text-align:center;color:#f85149;font-size:.8rem;margin:10px 0}
+.ft{text-align:center;padding:20px 0;font-size:.7rem;color:#484f58;border-top:1px solid #21262d;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Set 1 &#8212; Concentrated Bets</h1>
+<div class="meta">Paper Purchase: 20 Feb 2026 &#160;|&#160; Capital: &#8377;1,00,000 &#160;|&#160; Strategy: 4 trades, &#8377;25,000 each <span id="mb" class="mbadge mclosed">LOADING</span></div>
+</div>
+<div class="nav"><a href="set2-under1000.html">Switch to Set 2 &#8212; Under &#8377;1,000 Stocks &#8594;</a></div>
+<div class="summary">
+<div class="card"><div class="l">Invested</div><div class="v" id="sInv">--</div></div>
+<div class="card"><div class="l">Current Value</div><div class="v" id="sCur">--</div></div>
+<div class="card"><div class="l">P&amp;L</div><div class="v" id="sPL">--</div></div>
+<div class="card"><div class="l">Return</div><div class="v" id="sRet">--</div></div>
+</div>
+<div class="rbar">
+<span id="lu">Last updated: --</span>
+<div><span id="as"></span> <button class="btn" onclick="go()">Refresh Now</button></div>
+</div>
+<div id="sl"><div class="ld"><span class="sp"></span>Fetching live prices...</div></div>
+<div class="as" id="asec"><h2>Performance vs Expectations</h2><div id="ac"></div></div>
+<div class="ft">Data: Yahoo Finance via allorigins.win &#8226; Pen-and-paper exercise only &#8226; Not financial advice<br>Source analysis: 17 Feb 2026</div>
+<script>
+var S=[
+{name:"Dr Reddy's Laboratories",tk:"DRREDDY",sym:"DRREDDY.NS",bp:1285.0,qty:19,tgt:1530,sl:1180,er:"+19%",et:"3-6 weeks",
+cat:"Generic Wegovy (semaglutide) India launch \u2014 Delhi HC ban lifts March 2026. Manufacturing ready, 12M injectable pens planned year 1. Biosimilar abatacept (first globally, $4.2B market) filed Dec 2025 for US FDA. Rituximab licensed to Fresenius Kabi.",
+exp:"Stock expected to react in March when Wegovy India ban lifts. Move toward Rs.1,400+ on analyst upgrades, then Rs.1,530 by April-May when Q4 FY26 shows early Wegovy revenue. BofA target Rs.1,530."},
+{name:"Coforge Ltd",tk:"COFORGE",sym:"COFORGE.NS",bp:1359.80,qty:18,tgt:1650,sl:1260,er:"+19.7%",et:"6-10 weeks",
+cat:"Record $1.72B executable order book (signed contracts). Q3: revenue +28.5% YoY, profit +55.5% YoY. 3 AI platform launches in 3 months \u2014 CodeInsightAI (Feb 2026), EvolveOps.AI (Dec 2025), Forge-X. Salesforce WellnessAI partnership.",
+exp:"IT sector sentiment recovery drives Rs.1,450-1,500 by March. Q4 FY26 results (April) should be strong given locked-in order book, pushing to Rs.1,600-1,700. Motilal Oswal target Rs.2,400, Nomura Rs.1,900."},
+{name:"Coal India Ltd",tk:"COALINDIA",sym:"COALINDIA.NS",bp:420.70,qty:59,tgt:500,sl:380,er:"+18.5% + divs",et:"2-4 months",
+cat:"Dividend machine: 6-8% annual yield. P/E 8.7x, ROCE 48%, ROE 53%. Chile subsidiary approved for lithium & copper mining. 3GW solar target by 2029. Coal-to-ammonium nitrate Rs.3,190Cr project. 5 new mines (14.3MT capacity).",
+exp:"Stock stabilizes post-dividend in March. Energy sector recovery to Rs.440-460. Q4 FY26 results (April) with e-auction premiums could surprise. Final dividend May-June drives to Rs.490-500. Motilal Oswal target Rs.500. Lithium narrative could push to Rs.580+."},
+{name:"GHCL Limited",tk:"GHCL",sym:"GHCL.NS",bp:494.50,qty:50,tgt:660,sl:500,er:"+17.9% to +46.4%",et:"2-4 months",
+cat:"Anti-dumping duty petition filed against Chinese soda ash (25-26% market share via dumping). Rs.6,500Cr greenfield soda ash plant (Kutch) \u2014 doubles capacity to 2.3MT with dense soda ash for solar glass. Rs.350Cr vacuum salt project. Net cash Rs.861Cr.",
+exp:"Anti-dumping duty decision is binary catalyst \u2014 if positive, stock jumps 15-20% overnight. Soda ash at cycle bottom (prices down 19%). Forward P/E 7.83x deeply undervalued. Construction start also a catalyst. Bull case Rs.820 if cycle turns."}
+];
+var PX="https://api.allorigins.win/get?url=";
+var tmr=null;
+function fI(n){if(n==null||isNaN(n))return"--";var ng=n<0,a=Math.abs(n);return(ng?"-":"")+"\u20B9"+a.toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fP(n){if(n==null||isNaN(n))return"--";return(n>=0?"+":"")+n.toFixed(2)+"%"}
+function cc(n){return n>0.01?"pos":n<-0.01?"neg":"neut"}
+function mkt(){var d=new Date(),ist=new Date(d.toLocaleString("en-US",{timeZone:"Asia/Kolkata"})),dy=ist.getDay(),m=ist.getHours()*60+ist.getMinutes();return dy>0&&dy<6&&m>=555&&m<=930}
+async function fp(sym,retries){
+retries=retries||0;
+try{
+var u=PX+encodeURIComponent("https://query1.finance.yahoo.com/v8/finance/chart/"+sym+"?interval=1d&range=5d");
+var r=await fetch(u),w=await r.json(),d=JSON.parse(w.contents),mt=d.chart.result[0].meta;
+var p=mt.regularMarketPrice,pc=mt.chartPreviousClose;
+return{price:p,prevClose:pc,dc:p-pc,dcp:((p-pc)/pc)*100}
+}catch(e){if(retries<2){await new Promise(function(r){setTimeout(r,1500)});return fp(sym,retries+1)}throw e}}
+function gs(c,bp,tgt,sl){
+if(c<=sl)return{t:"HIT SL",c:"b5"};if(c>=tgt)return{t:"TARGET HIT",c:"b4"};
+var pt=((tgt-c)/(tgt-bp))*100;if(pt<=20)return{t:"NEAR TARGET",c:"b2"};
+var ps=((c-sl)/(bp-sl))*100;if(ps<=30)return{t:"AT RISK",c:"b3"};
+return{t:"ON TRACK",c:"b1"}}
+function pp(c,sl,tgt){return Math.max(0,Math.min(100,((c-sl)/(tgt-sl))*100))}
+function pcl(c,bp,sl){if(c>=bp)return"#3fb950";var r=(bp-c)/(bp-sl);return r>0.6?"#f85149":r>0.3?"#d29922":"#d29922"}
+function render(R){
+var tI=0,tC=0,h="";
+S.forEach(function(s,i){
+var inv=s.bp*s.qty;tI+=inv;var cv=inv,p=null,dc=0,dcp=0,st={t:"LOADING",c:"b1"},em="";
+var r=R[i];
+if(r&&r.price){p=r.price;cv=p*s.qty;dc=r.dc;dcp=r.dcp;st=gs(p,s.bp,s.tgt,s.sl)}
+else if(r&&r.error)em=r.error;
+tC+=cv;var pl=cv-inv,plp=(pl/inv)*100;
+var pos=p?pp(p,s.sl,s.tgt):pp(s.bp,s.sl,s.tgt);
+var bpos=pp(s.bp,s.sl,s.tgt);
+var fc=p?pcl(p,s.bp,s.sl):"#484f58";
+h+='<div class="sc"><div class="sh"><div><span class="sn">'+s.name+'</span> <span class="st">'+s.tk+'</span></div><span class="b '+st.c+'">'+st.t+'</span></div><div class="sb">';
+if(em)h+='<div class="err">'+em+'</div>';
+h+='<div class="sg">';
+h+='<div class="i"><div class="ll">Qty</div><div class="vv">'+s.qty+'</div></div>';
+h+='<div class="i"><div class="ll">Buy Price</div><div class="vv">'+fI(s.bp)+'</div></div>';
+h+='<div class="i"><div class="ll">Current</div><div class="vv '+(p?cc(p-s.bp):"")+'">'+( p?fI(p):"--")+'</div></div>';
+h+='<div class="i"><div class="ll">Day Chg</div><div class="vv '+cc(dc)+'">'+(p?fP(dcp):"--")+'</div></div>';
+h+='<div class="i"><div class="ll">P&L</div><div class="vv '+cc(pl)+'">'+(p?fI(pl):"--")+'</div></div>';
+h+='<div class="i"><div class="ll">Return</div><div class="vv '+cc(plp)+'">'+(p?fP(plp):"--")+'</div></div>';
+h+='</div>';
+h+='<div class="pw"><div class="pl"><span>SL '+fI(s.sl)+'</span><span>Buy '+fI(s.bp)+'</span><span>Target '+fI(s.tgt)+'</span></div>';
+h+='<div class="pb"><div class="pf" style="width:'+pos+'%;background:'+fc+'"></div><div class="pm" style="left:'+bpos+'%"></div></div></div>';
+h+='</div></div>';
+});
+document.getElementById("sl").innerHTML=h;
+var tPL=tC-tI,tPP=(tPL/tI)*100;
+document.getElementById("sInv").textContent=fI(tI);
+var e1=document.getElementById("sCur");e1.textContent=fI(tC);e1.className="v "+cc(tPL);
+var e2=document.getElementById("sPL");e2.textContent=fI(tPL);e2.className="v "+cc(tPL);
+var e3=document.getElementById("sRet");e3.textContent=fP(tPP);e3.className="v "+cc(tPP);
+rA(R,tPL,tPP);
+}
+function rA(R,tPL,tPP){
+var h="";
+S.forEach(function(s,i){
+var r=R[i],st="";
+if(r&&r.price){
+var p=r.price,pl=((p-s.bp)/s.bp*100).toFixed(2),toT=((s.tgt-p)/(s.tgt-s.bp)*100).toFixed(0),toS=((p-s.sl)/(s.bp-s.sl)*100).toFixed(0);
+var dh=Math.max(0,Math.floor((Date.now()-new Date("2026-02-20").getTime())/86400000));
+if(p>=s.tgt)st='<span class="pos">TARGET ACHIEVED at '+fI(p)+' after '+dh+' days. Expected '+s.et+'. Exit and rotate capital per plan.</span>';
+else if(p<=s.sl)st='<span class="neg">STOP-LOSS HIT at '+fI(p)+' after '+dh+' days. Exit immediately and rotate to backup trade per plan.</span>';
+else if(parseFloat(pl)>=12)st='<span class="pos">UP '+pl+'% \u2014 Per Rule 3, consider booking partial profit (sell 40% of position, let 60% ride to target).</span>';
+else if(parseFloat(pl)>0)st='<span class="pos">UP '+pl+'% ('+dh+' days held). '+toT+'% of move to target remaining. On track \u2014 expected '+s.et+'.</span>';
+else st='<span class="neg">DOWN '+pl+'% ('+dh+' days held). '+toS+'% buffer above stop-loss. '+(parseFloat(toS)<40?"Approaching risk zone \u2014 watch closely.":"Within normal range \u2014 hold per plan.")+'</span>';
+}else st='<span class="neut">Price data unavailable. Refresh to retry.</span>';
+h+='<div class="ai"><h3>'+s.name+' ('+s.tk+')</h3><p><strong>Catalyst:</strong> '+s.cat+'</p><p><strong>Original expectation:</strong> '+s.exp+'</p><div class="sl">'+st+'</div></div>';
+});
+var ov;
+if(tPP>=15)ov='<span class="pos">EXCELLENT: Set is up '+fP(tPP)+' \u2014 outperforming the base-case of +11.4%. Consider partial profit booking on individual winners.</span>';
+else if(tPP>=5)ov='<span class="pos">GOOD: Set is up '+fP(tPP)+' \u2014 tracking toward base-case net return of +11.4% to best-case +15%. Catalysts still playing out.</span>';
+else if(tPP>=0)ov='<span class="neut">NEUTRAL: Set is at '+fP(tPP)+' \u2014 early days. Major catalysts expected March-April 2026. Hold per plan.</span>';
+else if(tPP>=-5)ov='<span class="neg">SLIGHT DRAWDOWN: Set is at '+fP(tPP)+'. Within normal range. Worst-case modeled was -9.3% (all 4 hitting SL simultaneously). Hold unless individual SLs hit.</span>';
+else ov='<span class="neg">SIGNIFICANT DRAWDOWN: Set at '+fP(tPP)+'. Review each stock \u2014 exit any that hit stop-loss. Rotate into backups (GSPL, HCL Tech, Sun TV, Maithan Alloys) per plan.</span>';
+h+='<div class="ai"><h3>Overall Set Performance</h3><p><strong>Original scenarios:</strong> Best case +15.0% net (all targets), Base case +11.4% (3 of 4), Worst case +1.3% (1 win, 2 flat, 1 SL).</p><div class="sl">'+ov+'</div></div>';
+document.getElementById("ac").innerHTML=h;
+}
+async function go(){
+var bd=document.getElementById("mb"),op=mkt();
+bd.textContent=op?"MARKET OPEN":"MARKET CLOSED";bd.className="mbadge "+(op?"mopen":"mclosed");
+document.getElementById("sl").innerHTML='<div class="ld"><span class="sp"></span>Fetching live prices...</div>';
+var R=await Promise.all(S.map(async function(s){try{return await fp(s.sym)}catch(e){return{error:"Failed: "+e.message,price:null}}}));
+render(R);
+document.getElementById("lu").textContent="Last updated: "+new Date().toLocaleString("en-IN",{timeZone:"Asia/Kolkata"});
+if(tmr)clearTimeout(tmr);
+var el=document.getElementById("as");
+if(mkt()){el.textContent="Auto-refresh: 60s ";tmr=setTimeout(go,60000)}
+else{el.textContent="Auto-refresh paused (market closed) "}
+}
+go();
+</script>
+</body>
+</html>
